@@ -49,8 +49,8 @@ func DefaultHTTPResponseParserFactory(cfg HTTPResponseParserConfig) HTTPResponse
 		}
 
 		newResponse := Response{Data: data, IsComplete: true, Metadata: Metadata{
-			Headers:    resp.Header,
-			StatusCode: resp.StatusCode,
+			ResponseHeaders:    resp.Header,
+			ResponseStatusCode: resp.StatusCode,
 		}}
 		newResponse = cfg.EntityFormatter.Format(newResponse)
 		return &newResponse, nil

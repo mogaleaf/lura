@@ -240,12 +240,16 @@ func (r *requestWrapper) Params() map[string]string    { return r.params }
 func (r *requestWrapper) Headers() map[string][]string { return r.headers }
 
 type metadataWrapper struct {
-	headers    map[string][]string
-	statusCode int
+	headers            map[string][]string
+	responseHeaders    map[string][]string
+	responseStatusCode int
+	statusCode         int
 }
 
-func (m metadataWrapper) Headers() map[string][]string { return m.headers }
-func (m metadataWrapper) StatusCode() int              { return m.statusCode }
+func (m metadataWrapper) Headers() map[string][]string         { return m.headers }
+func (m metadataWrapper) ResponseHeaders() map[string][]string { return m.responseHeaders }
+func (m metadataWrapper) ResponseStatusCode() int              { return m.responseStatusCode }
+func (m metadataWrapper) StatusCode() int                      { return m.statusCode }
 
 type responseWrapper struct {
 	data       map[string]interface{}
@@ -254,8 +258,10 @@ type responseWrapper struct {
 	io         io.Reader
 }
 
-func (r responseWrapper) Data() map[string]interface{} { return r.data }
-func (r responseWrapper) IsComplete() bool             { return r.isComplete }
-func (r responseWrapper) Io() io.Reader                { return r.io }
-func (r responseWrapper) Headers() map[string][]string { return r.metadata.headers }
-func (r responseWrapper) StatusCode() int              { return r.metadata.statusCode }
+func (r responseWrapper) Data() map[string]interface{}         { return r.data }
+func (r responseWrapper) IsComplete() bool                     { return r.isComplete }
+func (r responseWrapper) Io() io.Reader                        { return r.io }
+func (r responseWrapper) Headers() map[string][]string         { return r.metadata.headers }
+func (r responseWrapper) StatusCode() int                      { return r.metadata.statusCode }
+func (m responseWrapper) ResponseHeaders() map[string][]string { return m.metadata.responseHeaders }
+func (m responseWrapper) ResponseStatusCode() int              { return m.metadata.responseStatusCode }
