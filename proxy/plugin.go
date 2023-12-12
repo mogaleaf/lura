@@ -174,8 +174,10 @@ func executeResponseModifiers(respModifiers []func(interface{}) (interface{}, er
 		data:       r.Data,
 		isComplete: r.IsComplete,
 		metadata: metadataWrapper{
-			headers:    r.Metadata.Headers,
-			statusCode: r.Metadata.StatusCode,
+			headers:            r.Metadata.Headers,
+			statusCode:         r.Metadata.StatusCode,
+			responseHeaders:    r.Metadata.ResponseHeaders,
+			responseStatusCode: r.Metadata.ResponseStatusCode,
 		},
 		io: r.Io,
 	}
